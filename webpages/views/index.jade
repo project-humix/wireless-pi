@@ -1,0 +1,17 @@
+doctype html
+html
+  title Setup Wireless
+body
+  form(action="./setup" method="POST")
+    table
+      tr
+        td SSID:
+        td
+          input(type="text" name="ssid")
+      tr  
+        td password:
+        td
+          input(type="password" name="password")
+      tr
+        td(colspan="2" align="center")
+          input(type="submit" value="Submit")
