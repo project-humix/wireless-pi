@@ -8,8 +8,8 @@ result=
 case "$action" in
   start)
     #try to stop dhcpd and hostapd
-    sudo start-stop-daemon --stop --pidfile "$WIRELESSPI_DHCP_PID" >/dev/null 2>&1
-    sudo start-stop-daemon --stop --pidfile "$WIRELESSPI_AP_PID" >/dev/null 2>&1
+    start-stop-daemon --stop --pidfile "$WIRELESSPI_DHCP_PID" >/dev/null 2>&1
+    start-stop-daemon --stop --pidfile "$WIRELESSPI_AP_PID" >/dev/null 2>&1
 
     #clear all ip on wlan0
     sudo ip addr flush dev wlan0
@@ -20,11 +20,11 @@ case "$action" in
     sleep 1
     
     #start dhcp server
-    sudo start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_DHCP_PID" --exec /usr/sbin/dhcpd -- -cf ${WIRELESSPI_DIR}/config/dhcpd.conf -pf ${WIRELESSPI_DHCP_PID} wlan0 >/dev/null 2>&1
+    start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_DHCP_PID" --exec /usr/sbin/dhcpd -- -cf ${WIRELESSPI_DIR}/config/dhcpd.conf -pf ${WIRELESSPI_DHCP_PID} wlan0 >/dev/null 2>&1
     sleep 2
 
     #start hostapd for hotspot
-    sudo start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_AP_PID" --exec /usr/local/bin/hostapd -- -B -P "$WIRELESSPI_AP_PID" ${WIRELESSPI_DIR}/config/hostapd.conf >/dev/null 2>&1
+    start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_AP_PID" --exec /usr/local/bin/hostapd -- -B -P "$WIRELESSPI_AP_PID" ${WIRELESSPI_DIR}/config/hostapd.conf >/dev/null 2>&1
 
     for i in `seq 10`; do
       sleep 3
@@ -44,9 +44,9 @@ case "$action" in
 
     ;;
   stop)
-    sudo start-stop-daemon --stop --pidfile "$WIRELESSPI_DHCP_PID" >/dev/null 2>&1
-    sudo start-stop-daemon --stop --pidfile "$WIRELESSPI_AP_PID" >/dev/null 2>&1
-    sudo ip addr flush dev wlan0
+    start-stop-daemon --stop --pidfile "$WIRELESSPI_DHCP_PID" >/dev/null 2>&1
+    start-stop-daemon --stop --pidfile "$WIRELESSPI_AP_PID" >/dev/null 2>&1
+    ip addr flush dev wlan0
     ;;
   *)
     echo "Usage: wpa_util.sh {start|stop}" || true
