@@ -3,6 +3,8 @@ require('shelljs/global');
 if (startWPA() === 'failed') {
   exec(__dirname + '/scripts/wpa_util.sh stop', {silent:true});
   setTimeout(startAPMode, 0);
+} else {
+    postInfo();
 }
 
 function startWPA() {
@@ -26,7 +28,26 @@ function startAPMode() {
       if (startWPA() === 'failed') {
         exec(__dirname + '/scripts/wpa_util.sh stop', {silent:true});
         setTimeout(startAPMode,0);
+      } else {
+          postInfo();
       }
     });
   }
 }
+
+function postInfo() {
+  var info = getNICInfo().split(',');
+
+  request.post('http://humix-wireless-board.mybluemix.net/add',
+    {'form':
+      {
+        'hwaddr':info[0].trim(), 'ipaddr': info[1].trim()
+      }
+    }
+  );
+}
+
+function getNICInfo() {
+  var output = exec(__dirname + '/scripts/getNICInfo.sh wlan0', {silent:true}).stdout;
+  return output.toString().trim();
+} 
