@@ -1,4 +1,5 @@
 require('shelljs/global');
+var request = require('request');
 
 if (startWPA() === 'failed') {
   exec(__dirname + '/scripts/wpa_util.sh stop', {silent:true});
