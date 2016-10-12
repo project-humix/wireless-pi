@@ -5,7 +5,7 @@ This is a utility that helps you to power on your raspberry pi3 with wireless ne
 # Prerequisite
 
 - a raspberry pi with raspbian
-- nodejs
+- nodejs (assuming the path of nodejs would be added to the `PATH` in `~/pi/.bashrc`)
 
 
 # How it works
