@@ -4,8 +4,9 @@
   "description": "An utility to config wireless in pi",
   "main": "daemon.js",
   "scripts": {
-    "preinstall": "scripts/preinstall.sh",
-    "start": "node_module/.bin/shjs daemon.js"
+    "start": "node_module/.bin/shjs daemon.js",
+    "install": "sudo scripts/install.sh",
+    "preinstall": "sudo scripts/preinstall.sh"
   },
   "author": "",
   "license": "ISC",
