@@ -24,7 +24,7 @@ case "$action" in
     sleep 2
 
     #start hostapd for hotspot
-    start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_AP_PID" --exec /usr/local/bin/hostapd -- -B -P "$WIRELESSPI_AP_PID" ${WIRELESSPI_DIR}/config/hostapd.conf >/dev/null 2>&1
+    start-stop-daemon --start --quiet --pidfile "$WIRELESSPI_AP_PID" --exec /usr/sbin/hostapd -- -B -P "$WIRELESSPI_AP_PID" ${WIRELESSPI_DIR}/config/hostapd.conf >/dev/null 2>&1
 
     for i in `seq 10`; do
       sleep 3
