@@ -1,16 +1,12 @@
 # wireless-pi
 
-This is a utility that helps you to power on your raspberry pi with wireless network connectivity
-when you only have one wireless card.
+This is a utility that helps you to power on your raspberry pi3 with wireless network connectivity.
 
 # Prerequisite
 
 - a raspberry pi with raspbian
-- a [EDIMAX EW-7811 Un](http://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/wireless_adapters_n150/ew-7811un)
 - nodejs
 
-Note: Currently, it helps you to download the hostapd package, build and install. 
-If you use different wirless dungle, you can skip the preinstall script.
 
 # How it works
 
@@ -43,20 +39,23 @@ hotspot mode or connect to a access point manually.
 # Installation
 
 - git clone this project  
-  git clone https://github.com/project-humix/wireless-pi.git
+  `git clone https://github.com/project-humix/wireless-pi.git`
 - get into the project directory  
-  cd wireless-pi
-- make the EDIMAX version of hostapd and install  
-  npm install
-- create startup service  
+  `cd wireless-pi`
+- kick off the installation  
+  `npm install`
+
+**Make sure that the `/etc/network/interfaces` should look like this**:
+
 ```
-sudo cat > /etc/init.d/wireless-pi
-#!/bin/sh
-node <where you clone the wireless-pi>
-```
-and hit `<enter>` and `ctrl-d`
-- enable the startup service  
-```
-sudo chmod +x /etc/init.d/wireless-pi
-sudo ln -s /etc/init.d/wireless-pi /etc/rc3.d/S20wireless-pi
+source-directory /etc/network/interfaces.d
+
+auto lo
+iface lo inet loopback
+
+iface eth0 inet manual
+
+allow-hotplug wlan0
+
+allow-hotplug wlan1
 ```
